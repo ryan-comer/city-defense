@@ -66,6 +66,7 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
             y = -0.5f,
             z = cityConfig.blockSize / 2
         };
+        groundObject.layer = LayerMask.NameToLayer("ground");
 
         return newBlock;
     }

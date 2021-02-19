@@ -53,7 +53,6 @@ public class CityGenerator : MonoBehaviour
 
         // Generate roads
         generateRoads(cityConfig);
-
     }
 
     // ***************** GENERATE BLOCK ************************

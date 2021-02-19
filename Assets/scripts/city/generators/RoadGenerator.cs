@@ -5,6 +5,8 @@ using UnityEngine;
 public class RoadGenerator : MonoBehaviour, IGenerator
 {
 
+    private List<Transform> intersections = new List<Transform>();  // Intersections between blocks
+
     // Generate the roads and return
     public GameObject Generate(CityConfig cityConfig)
     {
@@ -33,6 +35,7 @@ public class RoadGenerator : MonoBehaviour, IGenerator
                         y = 1,
                         z = cityConfig.blockSize
                     };
+                    rightRoad.layer = LayerMask.NameToLayer("ground");
                 }
 
                 // Skip last one
@@ -53,6 +56,7 @@ public class RoadGenerator : MonoBehaviour, IGenerator
                         y = 1,
                         z = cityConfig.roadWidth
                     };
+                    topRoad.layer = LayerMask.NameToLayer("ground");
                 }
 
                 // Fill in hole
@@ -72,11 +76,18 @@ public class RoadGenerator : MonoBehaviour, IGenerator
                         y = 1,
                         z = cityConfig.roadWidth
                     };
+                    holeFill.layer = LayerMask.NameToLayer("ground");
+                    intersections.Add(holeFill.transform);
                 }
             }
         }
 
         return roadsObjects;
+    }
+
+    public List<Transform> GetIntersections()
+    {
+        return intersections;
     }
 
 }
