@@ -6,6 +6,7 @@ public class MonsterMovement : MonoBehaviour
 {
 
     public float moveSpeed = 5.0f;  // The move speed of the monster
+    public float stoppingDistance;   // Don't get any closer to target
 
     private Animator anim;
     private Rigidbody rigid;
@@ -25,6 +26,12 @@ public class MonsterMovement : MonoBehaviour
         if(target == null)
         {
             anim.SetBool("walking", false);
+            return;
+        }
+
+        if((target.transform.position - transform.position).magnitude <= stoppingDistance)
+        {
+            // Don't get closer
             return;
         }
 

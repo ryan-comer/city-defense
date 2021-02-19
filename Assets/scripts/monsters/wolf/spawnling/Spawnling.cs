@@ -11,6 +11,11 @@ public class Spawnling : MonoBehaviour
     public float attackCooldown;    // Normal attack cooldown
     public float leapCooldown;  // Leap ability cooldown
 
+    public float attackDamage;  // Damage of attack
+    public float leapDamage;    // Damage of leap
+
+    public BoxCollider meleeCollider;  // Collider used for melee attack detection
+
     private Cooldowns cooldowns;    // Manages the cooldowns for abilities
     private MonsterTargeting monsterTargeting;  // Controls the target of the monster
     private Animator anim;  // Animator for the spawnling
@@ -36,6 +41,38 @@ public class Spawnling : MonoBehaviour
         useAbilities();
     }
 
+    // Called from animation
+    public void Attack()
+    {
+        Collider[] hits = getMeleeHits();
+
+        // Damage all the combats
+        foreach(Collider hitCollider in hits)
+        {
+            Combat combat = hitCollider.gameObject.GetComponent<Combat>();
+            if (combat)
+            {
+                combat.Damage(attackDamage);
+            }
+        }
+    }
+
+    // Called from animation
+    public void Leap()
+    {
+        Collider[] hits = getMeleeHits();
+
+        // Damage all the combats
+        foreach(Collider hitCollider in hits)
+        {
+            Combat combat = hitCollider.gameObject.GetComponent<Combat>();
+            if (combat)
+            {
+                combat.Damage(leapDamage);
+            }
+        }
+    }
+
     // See if you can use abilities
     private void useAbilities()
     {
@@ -57,6 +94,27 @@ public class Spawnling : MonoBehaviour
     {
         cooldowns.RegisterCooldown(ATTACK_NAME, attackCooldown);
         cooldowns.RegisterCooldown(LEAP_NAME, leapCooldown);
+    }
+
+    private Collider[] getMeleeHits()
+    {
+        int layerMask = LayerMask.GetMask("player", "citizen", "building");
+        Collider[] colliders = Physics.OverlapBox(meleeCollider.transform.position + meleeCollider.center, new Vector3(
+            meleeCollider.size.x/2,
+            meleeCollider.size.y/2,
+            meleeCollider.size.z/2
+        ), Quaternion.LookRotation(transform.forward, Vector3.up), layerMask);
+
+        return colliders;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(meleeCollider.transform.position + meleeCollider.center, new Vector3(
+            meleeCollider.size.x / 2,
+            meleeCollider.size.y / 2,
+            meleeCollider.size.z / 2
+        ));
     }
 
     // Check if an ability is in range of the target

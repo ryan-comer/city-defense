@@ -67,6 +67,14 @@ public class GameController : MonoBehaviour
 
         playerCamera.SetFollowTarget(m_player);
         playerCamera.SetLookAtTarget(m_player);
+
+        m_player.GetComponent<Combat>().OnDeath += playerDied;
+    }
+
+    // Callback for when the player dies
+    private void playerDied(GameObject player)
+    {
+        Debug.Log("Game Over!");
     }
 
 }

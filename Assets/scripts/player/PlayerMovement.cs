@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float distanceToGround;
 
     private Vector3 moveVector;
-    private Rigidbody rigidBody;
+    private Rigidbody rigid;
 
     private Animator anim;
 
@@ -54,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
-        Debug.Assert(rigidBody);
+        rigid = GetComponent<Rigidbody>();
+        Debug.Assert(rigid);
 
         anim = GetComponent<Animator>();
         Debug.Assert(anim);
@@ -113,9 +113,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidBody.velocity = new Vector3(
+        rigid.velocity = new Vector3(
             0.0f,
-            rigidBody.velocity.y,
+            rigid.velocity.y,
             0.0f
         );
         movePlayer();
@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
-            rigidBody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
     }
 
@@ -135,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(moveVector.magnitude > 0)
         {
-            rigidBody.MovePosition(transform.position + moveVector);
+            rigid.MovePosition(transform.position + moveVector);
             anim.SetBool("walking", true);
         }
         else
