@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4562088966297110095}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8331401120261336172}
   - component: {fileID: 9214708941553744566}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8738927909258337283}
   - component: {fileID: 2434857108983443769}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: residential_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1448132057088911083}
   - component: {fileID: 7145305839879861187}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2718631103607410953}
   - component: {fileID: 7100424927023276625}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2971246310324060041}
   - component: {fileID: 3487263722895807973}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7985260369033276396}
   - component: {fileID: 1500996083037592167}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,10 +363,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7218774962659525727, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -5245639288632905196, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -3488098710683948675, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -1293578434235397225, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 251694356271198250, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
         type: 3}
       propertyPath: m_Name
       value: residential_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169660781030640328, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660078589541694609, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810265959337095828, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904959490187043383, guid: 9a5f0c2bcfe2041409d0e718e6d866cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a5f0c2bcfe2041409d0e718e6d866cf, type: 3}

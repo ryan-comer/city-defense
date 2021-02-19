@@ -167,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded()
     {
         Ray ray = new Ray(transform.position + groundCheckOffset, Vector3.down);
-        return Physics.Raycast(ray, distanceToGround, LayerMask.GetMask(new string[] { "ground" }));
+        return Physics.Raycast(ray, distanceToGround, LayerMask.GetMask("ground", "building"));
     }
 
     private void OnDrawGizmos()

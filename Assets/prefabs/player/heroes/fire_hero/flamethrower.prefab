@@ -4817,7 +4817,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5.99
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5192,7 +5192,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 0.5
+    angle: 13.4
     length: 0.65
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5397,7 +5397,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 75
+      scalar: 250
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9266,5 +9266,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.33, y: 2.02, z: 10.76}
-  m_Center: {x: 0, y: 0, z: 5.36}
+  m_Size: {x: 5.6, y: 5.6, z: 15.68}
+  m_Center: {x: 0, y: 0, z: 8.08}

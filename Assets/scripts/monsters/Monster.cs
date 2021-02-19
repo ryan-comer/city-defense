@@ -39,6 +39,10 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         findTarget();
+    }
+
+    private void FixedUpdate()
+    {
         moveMonster();
     }
 

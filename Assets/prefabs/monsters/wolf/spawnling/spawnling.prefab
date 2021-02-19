@@ -246,11 +246,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3299309818411267040}
-  - component: {fileID: -5690588065169720081}
   - component: {fileID: 2865314710624632554}
+  - component: {fileID: -5690588065169720081}
   - component: {fileID: 7223200766083430726}
   - component: {fileID: 215505116910044888}
+  - component: {fileID: 6127798520120367132}
   - component: {fileID: 4007616622549231954}
+  - component: {fileID: 519401564318448119}
   - component: {fileID: 5068013857525904397}
   - component: {fileID: 2674100444797406330}
   m_Layer: 11
@@ -278,19 +280,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5690588065169720081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2744365196966225749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f1dd0b3a8ca1324492a02decfecc5b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  threat: 0
 --- !u!95 &2865314710624632554
 Animator:
   serializedVersion: 3
@@ -310,6 +299,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5690588065169720081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744365196966225749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1dd0b3a8ca1324492a02decfecc5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threat: 0
 --- !u!114 &7223200766083430726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +337,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4841f4f5e9d3043aae4ab9f261dbdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightRange: 40
+--- !u!114 &6127798520120367132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744365196966225749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bf097097395254585542870e3da416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 5
+  leapRange: 2
+  attackCooldown: 2
+  leapCooldown: 10
 --- !u!114 &4007616622549231954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +368,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 4621843861439393657}
+--- !u!114 &519401564318448119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744365196966225749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28618fd060549b44875cb09e79b6e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &5068013857525904397
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -363,7 +394,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &2674100444797406330
 BoxCollider:

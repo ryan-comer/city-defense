@@ -6,9 +6,24 @@ using UnityEngine;
 public class MonsterTargeting : MonoBehaviour
 {
 
+    public float sightRange = 5.0f;
+
     public GameObject FindTarget()
     {
-        return null;
+        int layerMask = LayerMask.GetMask("player", "citizen");
+        Collider[] collisions = Physics.OverlapSphere(transform.position, sightRange, layerMask);
+
+        if(collisions.Length == 0)
+        {
+            return null;
+        }
+
+        return collisions[0].gameObject;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
 }

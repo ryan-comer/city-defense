@@ -42,22 +42,23 @@ public class FireBall : MonoBehaviour
         transform.Translate(moveDirection, Space.World);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+
         // No friendly fire
-        if(collision.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
             return;
         }
 
         // Check for combat
-        Combat combat = collision.gameObject.GetComponent<Combat>();
+        Combat combat = other.gameObject.GetComponent<Combat>();
         if (combat)
         {
             combat.Damage(damage);
             Destroy(gameObject);
         }
-
+        
     }
 
 }
