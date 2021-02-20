@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject player_p; // Prefab for the player
     public PlayerCamera playerCamera; // Camera for the player
     public Transform playerSpawnPoint;  // Spawn point for the player
+    public HealthBar playerHealthBar;   // Health bar for the player
 
     private CityGenerator cityGenerator;
     public MonsterController monsterController;
@@ -69,6 +70,7 @@ public class GameController : MonoBehaviour
         playerCamera.SetLookAtTarget(m_player);
 
         m_player.GetComponent<Combat>().OnDeath += playerDied;
+        m_player.GetComponent<Combat>().healthBar = playerHealthBar;
     }
 
     // Callback for when the player dies

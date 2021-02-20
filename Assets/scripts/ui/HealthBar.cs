@@ -7,10 +7,14 @@ public class HealthBar : MonoBehaviour
 {
 
     public Image forground; // The forground image used for health
+    public bool shouldFaceCamera;   // Should the health bar face the camera
 
     private void Update()
     {
-        facePlayer();
+        if (shouldFaceCamera)
+        {
+            facePlayer();
+        }
     }
 
     // Set new health percentage for the bar
