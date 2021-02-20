@@ -45,7 +45,7 @@ public class MonsterMovement : MonoBehaviour
     }
 
     // Move the monster towards the target
-    public void MoveMonster(GameObject target)
+    public void MoveMonster(GameObject target, Vector3 targetLocation)
     {
         if(target == null)
         {

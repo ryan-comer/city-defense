@@ -10,6 +10,8 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
 
     public Material groundMaterial; // Material to fill the ground
 
+    private HashSet<Building> activeBuildings = new HashSet<Building>();  // Set of buildings created by the generator
+
     public GameObject Generate(CityConfig cityConfig)
     {
         // Block object
@@ -28,7 +30,7 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
             {
                 float yLeft = cityConfig.blockSize - y;
 
-                // Get the block object
+                // Get the building
                 Vector3 dimensions;
                 CityPrefabInfo blockObjectInfo = CityGenerationUtils.GetRandomBlockObjectWithMaxSize(xLeft, yLeft, buildings, out dimensions);
 
@@ -38,9 +40,24 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
                     break;
                 }
 
-                // Instantiate and place the block object
-                GameObject blockObject = Instantiate(blockObjectInfo.prefab, newBlock.transform);
-                blockObject.transform.localPosition = new Vector3(x + (dimensions.x / 2), 0, y + (dimensions.z / 2));
+                // Instantiate and place the building
+                GameObject buildingObj = Instantiate(blockObjectInfo.prefab, newBlock.transform);
+                buildingObj.transform.localPosition = new Vector3(x + (dimensions.x / 2), 0, y + (dimensions.z / 2));
+
+                // Add the building to the set of active buildings
+                Building building = buildingObj.GetComponent<Building>();
+                Debug.Assert(building);
+                activeBuildings.Add(building);
+
+                // Subscribe to building destroyed
+                Combat combat = buildingObj.GetComponent<Combat>();
+                Debug.Assert(combat);
+                combat.OnDeath += obj =>
+                {
+                    // Remove the building from the set
+                    Building building1 = obj.GetComponent<Building>();
+                    activeBuildings.Remove(building1);
+                };
 
                 // Update x and y for the building
                 maxX = Mathf.Max(maxX, dimensions.x);
@@ -69,6 +86,14 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
         groundObject.layer = LayerMask.NameToLayer("ground");
 
         return newBlock;
+    }
+
+    public Building[] GetBuildings()
+    {
+        Building[] buildings = new Building[activeBuildings.Count];
+        activeBuildings.CopyTo(buildings);
+
+        return buildings;
     }
 
     // Create the ground object to fill the bottom

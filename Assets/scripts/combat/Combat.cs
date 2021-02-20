@@ -13,6 +13,15 @@ public class Combat : MonoBehaviour
     public delegate void DeathDelegate(GameObject deadCharacter);
     public event DeathDelegate OnDeath;
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+    }
+    private bool isDead = false;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -27,7 +36,17 @@ public class Combat : MonoBehaviour
 
         if(currentHealth == 0)
         {
-            OnDeath.Invoke(gameObject);
+            // Avoid duplicate events
+            if (!isDead)
+            {
+                OnDeath.Invoke(gameObject);
+            }
+            else
+            {
+                Debug.Log("DUPLICATE");
+            }
+
+            isDead = true;
             Destroy(gameObject);
         }
 

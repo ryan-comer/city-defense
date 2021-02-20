@@ -10,4 +10,8 @@ public class ParkGenerator : MonoBehaviour, IGenerator
         return new GameObject();
     }
 
+    public Building[] GetBuildings()
+    {
+        return new Building[] { };
+    }
 }

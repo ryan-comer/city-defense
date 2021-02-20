@@ -12,10 +12,10 @@ public class GameController : MonoBehaviour
     public Transform playerSpawnPoint;  // Spawn point for the player
     public HealthBar playerHealthBar;   // Health bar for the player
 
-    private CityGenerator cityGenerator;
+    public CityController cityController;
     public MonsterController monsterController;
+    public UiController uiController;
 
-    private GameObject m_player;
     public GameObject Player
     {
         get
@@ -23,6 +23,10 @@ public class GameController : MonoBehaviour
             return m_player;
         }
     }
+
+    private GameObject m_player;
+    private int startingNumberOfBuildings = 0;  // The number of buildings at the start of the game - used to determine city health
+    private int currentNumberOfBuildings = 0;   // The number of currently alive buildings - used to determine city health
 
     private void Awake()
     {
@@ -35,23 +39,25 @@ public class GameController : MonoBehaviour
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Confined;
 
-        cityGenerator = GetComponent<CityGenerator>();
-        Debug.Assert(cityGenerator);
+        Debug.Assert(cityController);
         Debug.Assert(monsterController);
+        Debug.Assert(uiController);
 
         // City config for making the city
         CityConfig cityConfig = new CityConfig
         {
             blockSize = 150,
             cityType = CityType.MODERN,
-            numBlocks = 3,
+            numBlocks = 2,
             roadWidth = 10,
             blockBuildingSpacing = 5,
             cityStart = Vector3.zero
         };
 
         // Make the city
-        cityGenerator.GenerateCity(cityConfig, transform);
+        cityController.GenerateCity(cityConfig, transform);
+        startingNumberOfBuildings = cityController.GetAllBuildings().Length;
+        currentNumberOfBuildings = startingNumberOfBuildings;
 
         // Spawn the player
         spawnPlayer();
@@ -59,6 +65,24 @@ public class GameController : MonoBehaviour
         // Start spawning monsters
         monsterController.Initialize(1, cityConfig);
         monsterController.StartSpawning();
+
+        // Set up UI
+        uiController.SetCityHealthThresholdMarker(0.5f);
+
+        // Subscribe to events
+        foreach(Building building in cityController.GetAllBuildings())
+        {
+            Combat combat = building.GetComponent<Combat>();
+            combat.OnDeath += buildingDestroyed;
+        }
+    }
+
+    // Callback for when a building is destroyed
+    private void buildingDestroyed(GameObject building)
+    {
+        currentNumberOfBuildings -= 1;
+        float buildingsAlivePercentage = (float)currentNumberOfBuildings / (float)startingNumberOfBuildings;
+        uiController.SetCityHealthBar(buildingsAlivePercentage);
     }
 
     private void spawnPlayer()

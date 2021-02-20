@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IGenerator
 {
     GameObject Generate(CityConfig cityConfig);
+    Building[] GetBuildings();
 }

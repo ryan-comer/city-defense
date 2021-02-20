@@ -85,6 +85,11 @@ public class RoadGenerator : MonoBehaviour, IGenerator
         return roadsObjects;
     }
 
+    public Building[] GetBuildings()
+    {
+        return new Building[] { };
+    }
+
     public List<Transform> GetIntersections()
     {
         return intersections;

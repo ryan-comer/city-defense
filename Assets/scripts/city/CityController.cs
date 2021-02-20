@@ -32,7 +32,7 @@ public enum BlockType
     SHOPPING
 }
 
-public class CityGenerator : MonoBehaviour
+public class CityController : MonoBehaviour
 {
     public OfficeGenerator officeGenerator;
     public ParkGenerator parkGenerator;
@@ -42,6 +42,36 @@ public class CityGenerator : MonoBehaviour
     public RoadGenerator roadGenerator;
 
     private GameObject[,] cityGrid;    // 2D array to represent the city (adjacent blocks)
+
+    // Get all the buildings in the city
+    public Building[] GetAllBuildings()
+    {
+        List<Building> buildings = new List<Building>();
+
+        // Get buildings from all the generators
+        foreach(Building building in officeGenerator.GetBuildings())
+        {
+            buildings.Add(building);
+        }
+        foreach(Building building in residentialGenerator.GetBuildings())
+        {
+            buildings.Add(building);
+        }
+        foreach(Building building in parkGenerator.GetBuildings())
+        {
+            buildings.Add(building);
+        }
+        foreach(Building building in waterGenerator.GetBuildings())
+        {
+            buildings.Add(building);
+        }
+        foreach(Building building in shoppingGenerator.GetBuildings())
+        {
+            buildings.Add(building);
+        }
+
+        return buildings.ToArray();
+    }
 
     // Generate a city to do tower defense in
     public void GenerateCity(CityConfig cityConfig, Transform cityCenter)
@@ -74,8 +104,9 @@ public class CityGenerator : MonoBehaviour
         }
 
         // Generate this block
+        Building[] buildings;
         BlockType blockType = getNextBlockType();
-        var block = generateBlock(blockType, cityConfig);
+        var block = generateBlock(blockType, cityConfig, out buildings);
         cityGrid[blockX, blockY] = block;
 
         block.transform.position = new Vector3(blockX * cityConfig.blockSize, 0, blockY * cityConfig.blockSize);
@@ -100,7 +131,7 @@ public class CityGenerator : MonoBehaviour
 
     }
 
-    private GameObject generateBlock(BlockType blockType, CityConfig cityConfig)
+    private GameObject generateBlock(BlockType blockType, CityConfig cityConfig, out Building[] buildings)
     {
         IGenerator generator = null;
         switch (blockType)
@@ -122,7 +153,10 @@ public class CityGenerator : MonoBehaviour
                 break;
         }
 
-        return generator.Generate(cityConfig);
+        GameObject block = generator.Generate(cityConfig);
+        buildings = generator.GetBuildings();
+
+        return block;
     }
 
     private BlockType getNextBlockType()

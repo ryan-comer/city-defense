@@ -16,12 +16,10 @@ public class Monster : MonoBehaviour
 {
 
     public MonsterThreat threat;    // The threat level of this monster
-
+   
     private MonsterTargeting monsterTargeting; // Used to determine what the monster targets
     private MonsterMovement monsterMovement;    // Controls movement related logic for the monster
     private Combat combat;  // Controls combat related logic for the monster
-
-    private GameObject currentMonsterTarget;    // The object that this monster is targeting
 
     private Vector3 moveVector; // Vector the monster should move this frame
 
@@ -49,13 +47,13 @@ public class Monster : MonoBehaviour
     // Find a target for the monster
     private void findTarget()
     {
-        currentMonsterTarget = monsterTargeting.FindTarget();
+        monsterTargeting.FindTarget();
     }
 
     // Move the monster towards the target
     private void moveMonster()
     {
-        monsterMovement.MoveMonster(currentMonsterTarget);
+        monsterMovement.MoveMonster(monsterTargeting.CurrentTarget, monsterTargeting.CurrentTargetLocation);
     }
 
 }

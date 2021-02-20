@@ -89,6 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8738927909258337283}
   - component: {fileID: 2434857108983443769}
+  - component: {fileID: 7970461799887615844}
+  - component: {fileID: 1149695405061693576}
   m_Layer: 15
   m_Name: residential_3
   m_TagString: Untagged
@@ -125,6 +127,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 35.71, y: 4.5, z: 34.15}
   m_Center: {x: 0, y: 2.09, z: 0}
+--- !u!114 &7970461799887615844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199787100565144405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296e9c2ef5d20394fb06ada2bcf1814e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  healthBar: {fileID: 0}
+--- !u!114 &1149695405061693576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199787100565144405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826de669b3def1549b5ad9bde13f28cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4689311006962866934
 GameObject:
   m_ObjectHideFlags: 0

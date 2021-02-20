@@ -21,6 +21,7 @@ public class Spawnling : MonoBehaviour
     private Cooldowns cooldowns;    // Manages the cooldowns for abilities
     private MonsterTargeting monsterTargeting;  // Controls the target of the monster
     private MonsterMovement monsterMovement;    // Controls the movement of the monster
+    private Monster monster;    // Main monster component
     private Animator anim;  // Animator for the spawnling
     private Rigidbody rigid;    // Rigidbody for the spawnling
 
@@ -29,11 +30,10 @@ public class Spawnling : MonoBehaviour
     private const string LEAP_NAME = "leap";
     private const string ATTACK_NAME = "attack";
 
-    private GameObject currentTarget;   // Current object the spawnling is targetting - used for leap
-
     private void Start()
     {
         cooldowns = GetComponent<Cooldowns>();
+        monster = GetComponent<Monster>();
         monsterTargeting = GetComponent<MonsterTargeting>();
         monsterMovement = GetComponent<MonsterMovement>();
         anim = GetComponent<Animator>();
@@ -83,8 +83,16 @@ public class Spawnling : MonoBehaviour
     // Coroutine to leap forward
     private IEnumerator leapCo()
     {
+        // Check for target
+        if(monsterTargeting.CurrentTarget == null)
+        {
+            anim.SetBool("leap", false);
+            monsterMovement.ShouldMove = true;
+            yield break;
+        }
+
         // Apply the force to leap
-        Vector3 targetPosition = currentTarget.transform.position;
+        Vector3 targetPosition = monsterTargeting.CurrentTargetLocation;
         Vector3 moveVector = targetPosition - transform.position;
         moveVector.Normalize();
         moveVector *= leapForceHorizontal;
@@ -116,7 +124,7 @@ public class Spawnling : MonoBehaviour
             {
                 anim.SetBool("leap", false);
                 monsterMovement.ShouldMove = true;
-                yield return null;
+                yield break;
             }
 
             yield return new WaitForEndOfFrame();
@@ -126,13 +134,13 @@ public class Spawnling : MonoBehaviour
     // See if you can use abilities
     private void useAbilities()
     {
-        if (cooldowns.GetTimeLeft(LEAP_NAME) <= 0 && checkAbilityRange(leapRange, out currentTarget))
+        if (cooldowns.GetTimeLeft(LEAP_NAME) <= 0 && checkAbilityRange(leapRange))
         {
             // Leap attack
             anim.SetBool("leap", true);
             cooldowns.StartCooldown(LEAP_NAME);
         }
-        else if(cooldowns.GetTimeLeft(ATTACK_NAME) <= 0 && checkAbilityRange(attackRange, out currentTarget))
+        else if(cooldowns.GetTimeLeft(ATTACK_NAME) <= 0 && checkAbilityRange(attackRange))
         {
             // Attack
             anim.SetTrigger("attack");
@@ -169,9 +177,11 @@ public class Spawnling : MonoBehaviour
     }
 
     // Check if an ability is in range of the target
-    private bool checkAbilityRange(float range, out GameObject target)
+    private bool checkAbilityRange(float range)
     {
-        target = monsterTargeting.FindTarget();
+        GameObject target = monsterTargeting.CurrentTarget;
+        Vector3 targetLocation = monsterTargeting.CurrentTargetLocation;
+
         if(target == null)
         {
             // No target
@@ -179,7 +189,7 @@ public class Spawnling : MonoBehaviour
         }
 
         // See if you're close enough
-        if ((target.transform.position - transform.position).magnitude < range)
+        if ((targetLocation - transform.position).magnitude < range)
         {
             return true;
         }
