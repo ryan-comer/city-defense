@@ -1738,7 +1738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 33281
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -2491,9 +2491,6 @@ MonoBehaviour:
   - monsterThreatsToSpawn:
     - threat: 0
       count: 20
-  - monsterThreatsToSpawn:
-    - threat: 0
-      count: 5
   spawnableMonsters:
   - threat: 0
     monsters_p:

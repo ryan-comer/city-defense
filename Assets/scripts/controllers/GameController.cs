@@ -36,8 +36,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
 
         Debug.Assert(cityController);
         Debug.Assert(monsterController);
@@ -75,6 +75,10 @@ public class GameController : MonoBehaviour
             Combat combat = building.GetComponent<Combat>();
             combat.OnDeath += buildingDestroyed;
         }
+        monsterController.OnWavesComplete += () =>
+        {
+            Debug.Log("You Won!");
+        };
     }
 
     // Callback for when a building is destroyed

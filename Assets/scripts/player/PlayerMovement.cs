@@ -14,9 +14,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 moveVector;
     private Rigidbody rigid;
-
     private Animator anim;
 
+    // Enable/disable facing forward
     private bool shouldFaceForward = false;
     public bool ShouldFaceForward
     {
@@ -29,6 +29,35 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    // Enable/disable the movement part of the script
+    private bool shouldMove = true;
+    public bool ShouldMove
+    {
+        get
+        {
+            return shouldMove;
+        }
+        set
+        {
+            shouldMove = value;
+        }
+    }
+
+    // Enable/disable facing at all
+    private bool shouldFacePlayer = true;
+    public bool ShouldFacePlayer
+    {
+        get
+        {
+            return shouldFacePlayer;
+        }
+        set
+        {
+            shouldFacePlayer = value;
+        }
+    }
+
 
     private System.DateTime lastFaceForwardTime;
     private float maxFaceForwardTime = 2.0f;
@@ -113,12 +142,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigid.velocity = new Vector3(
-            0.0f,
-            rigid.velocity.y,
-            0.0f
-        );
-        movePlayer();
+        if (shouldMove)
+        {
+            rigid.velocity = new Vector3(
+                0.0f,
+                rigid.velocity.y,
+                0.0f
+            );
+            movePlayer();
+        }
     }
 
     // Check if the player jumped
@@ -157,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
             direction = moveVector;
         }
         direction.y = 0;
-        if(direction.magnitude > 0)
+        if(shouldFacePlayer && direction.magnitude > 0)
         {
             transform.rotation = Quaternion.Lerp(playerBody.transform.rotation, Quaternion.LookRotation(direction, Vector3.up), 0.2f);
         }

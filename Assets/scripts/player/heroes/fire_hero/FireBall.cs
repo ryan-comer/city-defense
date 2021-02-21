@@ -45,8 +45,7 @@ public class FireBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        // No friendly fire
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag != "monster")
         {
             return;
         }

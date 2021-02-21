@@ -24,6 +24,7 @@ public class Spawnling : MonoBehaviour
     private Monster monster;    // Main monster component
     private Animator anim;  // Animator for the spawnling
     private Rigidbody rigid;    // Rigidbody for the spawnling
+    private StatusEffects statusEffects;    // Status effects for the spawnling
 
     private bool abilitiesEnabled = true;    // Should use abilities
 
@@ -38,12 +39,14 @@ public class Spawnling : MonoBehaviour
         monsterMovement = GetComponent<MonsterMovement>();
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
+        statusEffects = GetComponent<StatusEffects>();
 
         Debug.Assert(cooldowns);
         Debug.Assert(monsterTargeting);
         Debug.Assert(monsterMovement);
         Debug.Assert(anim);
         Debug.Assert(rigid);
+        Debug.Assert(statusEffects);
 
         registerCooldowns();
     }
@@ -134,6 +137,12 @@ public class Spawnling : MonoBehaviour
     // See if you can use abilities
     private void useAbilities()
     {
+        // Check for stun
+        if (statusEffects.CheckStatus(STATUS_EFFECT.STUN))
+        {
+            return;
+        }
+
         if (cooldowns.GetTimeLeft(LEAP_NAME) <= 0 && checkAbilityRange(leapRange))
         {
             // Leap attack

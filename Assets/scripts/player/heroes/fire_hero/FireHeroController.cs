@@ -9,11 +9,22 @@ public class FireHeroController : MonoBehaviour
 
     public FireBall fireball_p;
     public FlameThrower flamethrower_p;
+    public ParticleSystem flightExhaust;
+    public FireZone fireZone_p;
+    public FlashBang flashbang_p;
+
+    public float flightSpeed;   // How fast the hero can fly
 
     private PlayerMovement playerMovement;
     private Animator anim;
+    private Rigidbody rigid;
 
     private FlameThrower currentFlameThrower;   // Current flamethrower object, used to destroy when done
+
+    private Vector3 flightMoveVector;   // Move vector used to fly
+    private bool isFlying = false;  // Is the hero currently flying
+
+    private Vector3 fireZonePosition;   // Where the fire zone will be placed
 
     // Called by animation to shoot a fireball
     public void ShootFireball(int hand)
@@ -43,21 +54,61 @@ public class FireHeroController : MonoBehaviour
         fireball.SetTarget(target);
     }
 
+    // Create the fire zone
+    public void FireZone()
+    {
+        if(fireZonePosition != null)
+        {
+            FireZone fireZone = Instantiate(fireZone_p);
+            fireZone.transform.position = fireZonePosition;
+
+            anim.ResetTrigger("firezone");
+        }
+    }
+
+    // Create a flashbang and damage/stun enemies
+    public void FlashBang()
+    {
+        // Create the particle effect
+        FlashBang flashBang = Instantiate(flashbang_p);
+        flashBang.transform.position = transform.position;
+
+        // Destroy the particle effect
+        Destroy(flashBang.gameObject, 1.0f);
+    }
+
     private void Start()
     {
         anim = GetComponent<Animator>();
-        Debug.Assert(anim);
-
         playerMovement = GetComponent<PlayerMovement>();
+        rigid = GetComponent<Rigidbody>();
+
         Debug.Assert(playerMovement);
+        Debug.Assert(anim);
+        Debug.Assert(rigid);
 
         Debug.Assert(leftHand);
         Debug.Assert(rightHand);
+
+        flightExhaust.Stop();   // Start stopped
     }
 
     private void Update()
     {
         checkInput();
+
+        if (isFlying)
+        {
+            flight();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isFlying)
+        {
+            flightMovePlayer();
+        }
     }
 
     private void checkInput()
@@ -77,6 +128,64 @@ public class FireHeroController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             playerMovement.ShouldFaceForward = true;
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            toggleFlying();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            flashBang();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            fireZone();
+        }
+    }
+
+    // Start the animation for flashbang
+    private void flashBang()
+    {
+        anim.SetTrigger("flashbang");
+    }
+
+    // Start animation to create a fire zone
+    private void fireZone()
+    {
+        // Check for ground target
+        if (PlayerUtils.GetGroundTarget(out fireZonePosition))
+        {
+            anim.SetTrigger("firezone");
+        }
+    }
+
+    private void toggleFlying()
+    {
+        // Cancel flight
+        if (isFlying)
+        {
+            rigid.useGravity = true;
+            playerMovement.ShouldMove = true;
+            StartCoroutine(delaySetShouldFaceCo());
+            isFlying = false;
+
+            resetRotation();
+
+            anim.SetBool("flying", false);
+            flightExhaust.Stop();
+            return;
+        }
+        // Start flying
+        else
+        {
+            rigid.useGravity = false;
+            playerMovement.ShouldMove = false;
+            playerMovement.ShouldFacePlayer = false;
+            isFlying = true;
+
+            anim.SetBool("flying", true);
+            flightExhaust.Play();
+            return;
         }
     }
 
@@ -103,6 +212,74 @@ public class FireHeroController : MonoBehaviour
         {
             Destroy(currentFlameThrower.gameObject);
         }
+    }
+
+    // Move the character according to flight
+    private void flight()
+    {
+        setFlightMovement();
+        flightFacePlayer();
+    }
+
+    // Set the move vector for flying
+    private void setFlightMovement()
+    {
+        flightMoveVector = Vector3.zero;
+        if (Input.GetKey(KeyCode.W))
+        {
+            flightMoveVector += Vector3.forward;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            flightMoveVector += Vector3.left;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            flightMoveVector += Vector3.back;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            flightMoveVector += Vector3.right;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            flightMoveVector += Vector3.up;
+        }
+        if(Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl))
+        {
+            flightMoveVector += Vector3.down;
+        }
+
+        flightMoveVector.Normalize();
+        flightMoveVector *= flightSpeed;
+        flightMoveVector = Camera.main.transform.TransformDirection(flightMoveVector);
+    }
+
+    // Face the player - flying
+    private void flightFacePlayer()
+    {
+        transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+    }
+
+    // Move the player - flying
+    private void flightMovePlayer()
+    {
+        rigid.velocity = Vector3.zero;
+        rigid.MovePosition(transform.position + flightMoveVector);
+    }
+
+    // Reset the rotation after flying
+    private void resetRotation()
+    {
+        Vector3 direction = Camera.main.transform.forward;
+        direction.y = 0;
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    private IEnumerator delaySetShouldFaceCo()
+    {
+        yield return new WaitForSeconds(1.0f);
+        playerMovement.ShouldFacePlayer = true;
     }
 
 }

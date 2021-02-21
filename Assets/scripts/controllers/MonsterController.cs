@@ -43,6 +43,10 @@ public class MonsterController : MonoBehaviour
     private List<Vector3> spawnLocations = new List<Vector3>(); // The locations that monsters can spawn from
 
     private bool spawnPending = false;  // Is there a pending spawn - used to avoid duplicate spawns
+    private bool wavesComplete = false; // Are the waves over
+
+    public delegate void WavesCompleteDelegate();
+    public event WavesCompleteDelegate OnWavesComplete;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +57,10 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkNextWave();
+        if (!wavesComplete)
+        {
+            checkNextWave();
+        }
     }
 
     // Initialize the monster spawner
@@ -81,6 +88,13 @@ public class MonsterController : MonoBehaviour
         // See if the monsters are dead
         if(activeMonsters.Count == 0 && !spawnPending)
         {
+            // Check for win condition
+            if(currentWaveNumber == waves.Length)
+            {
+                wavesComplete = true;
+                OnWavesComplete.Invoke();
+            }
+
             // Spawn the next wave
             StartCoroutine(spawnWaitCoroutine());
             spawnPending = true;

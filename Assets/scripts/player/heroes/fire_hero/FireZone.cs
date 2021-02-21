@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlameThrower : MonoBehaviour
+public class FireZone : MonoBehaviour
 {
-
     public float tickRate;  // How many times per second to tick damage
     public float damagePerTick = 4;  // How much damage per tick to do
+    public float duration;  // How long the firezone lasts
 
     HashSet<Combat> charactersHit = new HashSet<Combat>();    // Keep track of who will take damage
 
     private void Start()
     {
         StartCoroutine(damageCo());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        faceFlameThrower();
+        Destroy(gameObject, duration);
     }
 
     // Damage characters who are in the collider
@@ -26,7 +21,7 @@ public class FlameThrower : MonoBehaviour
     {
         while (true)
         {
-            foreach(Combat combat in charactersHit)
+            foreach (Combat combat in charactersHit)
             {
                 if (combat)
                 {
@@ -38,15 +33,9 @@ public class FlameThrower : MonoBehaviour
         }
     }
 
-    // Make the flamethrower face the right way
-    private void faceFlameThrower()
-    {
-        transform.rotation = Quaternion.LookRotation(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)).direction, Vector3.up);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "monster")
+        if (other.gameObject.tag != "monster")
         {
             return;
         }
@@ -61,7 +50,7 @@ public class FlameThrower : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag != "monster")
+        if (other.gameObject.tag != "monster")
         {
             return;
         }

@@ -41,10 +41,6 @@ public class Combat : MonoBehaviour
             {
                 OnDeath.Invoke(gameObject);
             }
-            else
-            {
-                Debug.Log("DUPLICATE");
-            }
 
             isDead = true;
             Destroy(gameObject);
