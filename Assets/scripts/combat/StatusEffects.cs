@@ -58,8 +58,10 @@ public class StatusEffects : MonoBehaviour
     private void checkClearStatusEffect()
     {
         System.DateTime currentTime = System.DateTime.Now;
+        STATUS_EFFECT[] statusEffects = new STATUS_EFFECT[statusEffectTimes.Keys.Count];
+        statusEffectTimes.Keys.CopyTo(statusEffects, 0);
 
-        foreach(STATUS_EFFECT statusEffect in statusEffectTimes.Keys)
+        foreach(STATUS_EFFECT statusEffect in statusEffects)
         {
             float secondsPassed = (float)(currentTime - statusEffectTimes[statusEffect]).TotalSeconds;
             if(secondsPassed > statusEffectDurations[statusEffect])

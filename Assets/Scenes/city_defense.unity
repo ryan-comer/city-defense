@@ -2490,7 +2490,7 @@ MonoBehaviour:
   waves:
   - monsterThreatsToSpawn:
     - threat: 0
-      count: 20
+      count: 30
   spawnableMonsters:
   - threat: 0
     monsters_p:

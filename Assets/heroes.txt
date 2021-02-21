@@ -8,16 +8,16 @@ C class abilities
 	- Move while create a cone of fire (AoE)
 
 B class abilities
-- Flight
 - Flashbang
 	- Stun and damage in an area around you
 
 A class abilities
-- Burning Blood
-	- You heal base on damage you do for a period of time
+- Flight
 - Blaze
 	- Create a zone of fire that damages enemies caught within
 
 S class abilities
 - Heat Wave
 	- Kamehameha like wave of fire
+- Heat seeker
+	- Shoot a bunch of fire balls out that track targets
