@@ -9,6 +9,7 @@ public class HeatSeekerBall : MonoBehaviour
     public float moveSpeed; // How fast the balls move
     public float delayAtInitialPosition = 1.0f;    // How long to stay at the initial position
 
+    private bool shouldMoveToInitialPosition = true;    // Used to prevent jumping around at the initial position
     private bool reachedInitialPosition = false;    // Has the ball reached the initial position yet
     private GameObject target;  // Target that the ball is tracking
 
@@ -31,7 +32,10 @@ public class HeatSeekerBall : MonoBehaviour
         checkReachedInitialPosition();
         if (!reachedInitialPosition)
         {
-            moveToInitialPosition();
+            if (shouldMoveToInitialPosition)
+            {
+                moveToInitialPosition();
+            }
         }
         else
         {
@@ -44,6 +48,7 @@ public class HeatSeekerBall : MonoBehaviour
         if((initialPosition - transform.position).magnitude < 0.1f)
         {
             findTarget();
+            shouldMoveToInitialPosition = false;
             StartCoroutine(delaySetReachInitialPositionCo());
         }
     }
@@ -73,6 +78,7 @@ public class HeatSeekerBall : MonoBehaviour
             if(target == null)
             {
                 Destroy(gameObject);    // No more targets
+                return;
             }
         }
 

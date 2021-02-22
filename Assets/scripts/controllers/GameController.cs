@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public CityController cityController;
     public MonsterController monsterController;
     public UiController uiController;
+    public MinimapController minimapController;
 
     public GameObject Player
     {
@@ -42,6 +43,7 @@ public class GameController : MonoBehaviour
         Debug.Assert(cityController);
         Debug.Assert(monsterController);
         Debug.Assert(uiController);
+        Debug.Assert(minimapController);
 
         // City config for making the city
         CityConfig cityConfig = new CityConfig
@@ -68,6 +70,9 @@ public class GameController : MonoBehaviour
 
         // Set up UI
         uiController.SetCityHealthThresholdMarker(0.5f);
+        float x1, x2, y1, y2;
+        cityController.GetWorldLimits(out x1, out x2, out y1, out y2);
+        minimapController.SetWorldLimits(x1, x2, y1, y2);
 
         // Subscribe to events
         foreach(Building building in cityController.GetAllBuildings())
@@ -78,6 +83,14 @@ public class GameController : MonoBehaviour
         monsterController.OnWavesComplete += () =>
         {
             Debug.Log("You Won!");
+        };
+        monsterController.OnMonsterSpawn += (monster) =>
+        {
+            minimapController.AddTrackedObject(monster.gameObject, "monster");
+        };
+        monsterController.OnMonsterDied += (monster) =>
+        {
+            minimapController.RemoveTrackedObject(monster.gameObject);
         };
     }
 
@@ -99,11 +112,14 @@ public class GameController : MonoBehaviour
 
         m_player.GetComponent<Combat>().OnDeath += playerDied;
         m_player.GetComponent<Combat>().healthBar = playerHealthBar;
+
+        minimapController.AddTrackedObject(m_player, "player");
     }
 
     // Callback for when the player dies
     private void playerDied(GameObject player)
     {
+        minimapController.RemoveTrackedObject(player);
         Debug.Log("Game Over!");
     }
 

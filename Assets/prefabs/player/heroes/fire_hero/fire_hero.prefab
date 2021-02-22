@@ -116,7 +116,7 @@ MonoBehaviour:
   heatSeekerBall_p: {fileID: 5477288861155773708, guid: b510bc0d7ccaf11458119a1d38251deb,
     type: 3}
   heatSeekerBallFiringTime: 1.5
-  heatSeekerBallFireTick: 0.05
+  heatSeekerBallFireTick: 0.03
   heatSeekerBallInitialDistance: 20
   flightSpeed: 0.6
 --- !u!114 &7645054553555985352

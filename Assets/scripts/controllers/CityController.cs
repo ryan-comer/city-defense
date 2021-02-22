@@ -43,6 +43,15 @@ public class CityController : MonoBehaviour
 
     private GameObject[,] cityGrid;    // 2D array to represent the city (adjacent blocks)
 
+    private CityConfig currentConfig;   // Config for this city generation
+
+    // Get the limits of the city in world space
+    public void GetWorldLimits(out float x1, out float x2, out float y1, out float y2)
+    {
+        x1 = y1 = 0;
+        x2 = y2 = (currentConfig.numBlocks * currentConfig.blockSize) + ((currentConfig.numBlocks - 1) * currentConfig.roadWidth);
+    }
+
     // Get all the buildings in the city
     public Building[] GetAllBuildings()
     {
@@ -76,6 +85,7 @@ public class CityController : MonoBehaviour
     // Generate a city to do tower defense in
     public void GenerateCity(CityConfig cityConfig, Transform cityCenter)
     {
+        currentConfig = cityConfig;
         initializeGrid(cityConfig);
 
         // Generate each block

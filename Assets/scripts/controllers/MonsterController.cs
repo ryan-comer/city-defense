@@ -48,6 +48,12 @@ public class MonsterController : MonoBehaviour
     public delegate void WavesCompleteDelegate();
     public event WavesCompleteDelegate OnWavesComplete;
 
+    public delegate void MonsterSpawnedDelegate(Monster monster);
+    public event MonsterSpawnedDelegate OnMonsterSpawn;
+
+    public delegate void MonsterDiedDelegate(Monster monster);
+    public event MonsterDiedDelegate OnMonsterDied;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -168,6 +174,8 @@ public class MonsterController : MonoBehaviour
         combat.OnDeath += monsterDied;
 
         activeMonsters.Add(newMonster); // Add to tracked monsters
+
+        OnMonsterSpawn.Invoke(newMonster);
     }
 
     // Callback for when a monster dies
@@ -175,6 +183,8 @@ public class MonsterController : MonoBehaviour
     {
         Monster monster = deadMonster.GetComponent<Monster>();
         activeMonsters.Remove(monster);
+
+        OnMonsterDied.Invoke(monster);
     }
 
     // Find all the spawn locations based on the city config
