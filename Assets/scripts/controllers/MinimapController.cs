@@ -79,8 +79,19 @@ public class MinimapController : MonoBehaviour
         foreach(GameObject obj in trackedObjects)
         {
             Image icon = trackedObjectIcons[obj];
+
             Vector3 newPosition = minimap.MapWorldPositionToMinimapPosition(obj.transform.position);
+            newPosition.x *= -1;
+            newPosition.x -= minimap.x2;
+            newPosition.y -= minimap.y2;
+            Quaternion newRotation = Quaternion.Euler(
+                transform.rotation.eulerAngles.x,
+                transform.rotation.eulerAngles.y,
+                obj.transform.rotation.eulerAngles.y
+            );
+
             icon.rectTransform.localPosition = newPosition;
+            icon.rectTransform.localRotation = newRotation;
         }
     }
 

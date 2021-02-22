@@ -5,7 +5,9 @@ using UnityEngine;
 public class Minimap : MonoBehaviour
 {
 
-    private float x1, x2, y1, y2;    // Used for the minimap part of the mapping
+    [HideInInspector]
+    public float x1, x2, y1, y2;    // Used for the minimap part of the mapping
+
     private float worldX1, worldX2, worldY1, worldY2;   // Used for the city part of the mapping
 
     private void Start()
@@ -24,10 +26,10 @@ public class Minimap : MonoBehaviour
     private void setMinimapLimits()
     {
         RectTransform rect = GetComponent<RectTransform>();
-        x1 = -1 * rect.sizeDelta.x/2 - rect.sizeDelta.x/2;
-        y1 = -1 * rect.sizeDelta.y/2 - rect.sizeDelta.y/2;
-        x2 = rect.sizeDelta.x/2 - rect.sizeDelta.x/2;
-        y2 = rect.sizeDelta.y/2 - rect.sizeDelta.y/2;
+        x1 = -1 * rect.sizeDelta.x / 2;
+        y1 = -1 * rect.sizeDelta.y / 2;
+        x2 = rect.sizeDelta.x / 2;
+        y2 = rect.sizeDelta.y / 2;
     }
 
     // Map the objects position to a position on the minimap
