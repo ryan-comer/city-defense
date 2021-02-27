@@ -21,22 +21,22 @@ public static class PlayerUtils
         }
     }
 
-    // Get a ground target vector based on camera
-    public static bool GetGroundTarget(out Vector3 groundTarget)
+    // Get the target from the center of the screen
+    // getGround - must return the ground of the target
+    public static bool GetTarget(out Vector3 target, LayerMask layerMask, bool getGround = false)
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        int layerMask = LayerMask.GetMask("ground");
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 1000.0f, layerMask))
         {
-            groundTarget = hit.point;
+            target = hit.point;
             return true;
         }
         else
         {
-            groundTarget = Vector3.zero;
+            target = Vector3.zero;
             return false;
         }
     }
-    
+
 }

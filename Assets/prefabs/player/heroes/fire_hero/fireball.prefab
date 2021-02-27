@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 80
-  damage: 10
 --- !u!65 &3128480588836947354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76,7 +75,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 65536
-  damage: 10
+  damage: 20
   destroyOnHit: 1
 --- !u!1001 &3718772837872810708
 PrefabInstance:

@@ -188,7 +188,7 @@ public class FireHeroController : MonoBehaviour
     private void fireZone()
     {
         // Check for ground target
-        if (PlayerUtils.GetGroundTarget(out fireZonePosition))
+        if (PlayerUtils.GetTarget(out fireZonePosition, LayerMask.GetMask("monster_main", "ground")))
         {
             anim.SetTrigger("firezone");
         }

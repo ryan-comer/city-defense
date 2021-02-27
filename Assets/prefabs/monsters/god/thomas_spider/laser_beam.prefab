@@ -113,6 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerTick: 10
-  tickRate: 1
+  tickRate: 0.25
   moveSpeed: 20
   line: {fileID: 6217785051598086113}

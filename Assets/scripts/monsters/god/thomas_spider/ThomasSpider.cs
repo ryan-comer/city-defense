@@ -55,6 +55,8 @@ public class ThomasSpider : MonoBehaviour
         Debug.Assert(statusEffects);
 
         registerCooldowns();
+
+        GetComponent<Combat>().OnDeath += cleanup;
     }
 
     // Update is called once per frame
@@ -90,6 +92,14 @@ public class ThomasSpider : MonoBehaviour
         currentLaserBeam = Instantiate(laserBeam_p);
 
         StartCoroutine(laserBeamCo());
+    }
+
+    private void cleanup(GameObject obj)
+    {
+        if(currentLaserBeam?.gameObject != null)
+        {
+            Destroy(currentLaserBeam.gameObject);
+        }
     }
 
     // Coroutine to manage the laser beam
