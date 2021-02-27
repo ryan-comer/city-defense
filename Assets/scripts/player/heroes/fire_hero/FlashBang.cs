@@ -31,7 +31,7 @@ public class FlashBang : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             // Only hit monsters
-            if(collider.gameObject.tag != "monster")
+            if(collider.gameObject.layer != LayerMask.NameToLayer("monster_main"))
             {
                 continue;
             }

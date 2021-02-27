@@ -5,7 +5,6 @@ using UnityEngine;
 public class HeatSeekerBall : MonoBehaviour
 {
 
-    public float damage;    // Damage per ball
     public float moveSpeed; // How fast the balls move
     public float delayAtInitialPosition = 1.0f;    // How long to stay at the initial position
 
@@ -92,7 +91,7 @@ public class HeatSeekerBall : MonoBehaviour
     // Find the closest monster to attack
     private void findTarget()
     {
-        int layerMask = LayerMask.GetMask("monster");
+        int layerMask = LayerMask.GetMask("monster_main");
         Collider[] colliders = Physics.OverlapSphere(transform.position, 2000, layerMask);
 
         // No colliders found
@@ -114,22 +113,6 @@ public class HeatSeekerBall : MonoBehaviour
         // Randomly pick the closest 10
         int maxIndex = Mathf.Min(10, collidersList.Count);
         target = collidersList[Random.Range(0, maxIndex)].gameObject;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject != target)
-        {
-            return;
-        }
-
-        // Hit target
-        Combat combat = other.gameObject.GetComponent<Combat>();
-        if (combat)
-        {
-            combat.Damage(damage);
-            Destroy(gameObject);
-        }
     }
 
 }

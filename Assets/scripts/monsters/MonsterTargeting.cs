@@ -27,7 +27,7 @@ public class MonsterTargeting : MonoBehaviour
 
     public GameObject FindTarget()
     {
-        int layerMask = LayerMask.GetMask("player", "citizen");
+        int layerMask = LayerMask.GetMask("player_main", "citizen", "building");
         Collider[] colliders = Physics.OverlapSphere(transform.position, sightRange, layerMask);
 
         if(colliders.Length == 0)

@@ -46,7 +46,7 @@ public class FlameThrower : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "monster")
+        if (other.gameObject.layer != LayerMask.NameToLayer("monster_main"))
         {
             return;
         }
@@ -61,7 +61,7 @@ public class FlameThrower : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag != "monster")
+        if (other.gameObject.layer != LayerMask.NameToLayer("monster_main"))
         {
             return;
         }

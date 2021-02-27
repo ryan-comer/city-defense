@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
             blockSize = 150,
             cityType = CityType.MODERN,
             numBlocks = 4,
-            roadWidth = 10,
+            roadWidth = 20,
             blockBuildingSpacing = 5,
             cityStart = Vector3.zero
         };

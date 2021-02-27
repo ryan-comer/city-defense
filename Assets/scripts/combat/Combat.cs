@@ -39,7 +39,10 @@ public class Combat : MonoBehaviour
             // Avoid duplicate events
             if (!isDead)
             {
-                OnDeath.Invoke(gameObject);
+                if (OnDeath != null)
+                {
+                    OnDeath.Invoke(gameObject);
+                }
             }
 
             isDead = true;

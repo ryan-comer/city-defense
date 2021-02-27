@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6621159774093997458}
   - component: {fileID: 7645054553555985352}
   - component: {fileID: 7405515847490596928}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: fire_hero
   m_TagString: Player
   m_Icon: {fileID: 0}

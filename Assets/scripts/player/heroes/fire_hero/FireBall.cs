@@ -6,7 +6,6 @@ public class FireBall : MonoBehaviour
 {
 
     public float moveSpeed = 1.0f;  // Speed that the fireball moves
-    public float damage = 10.0f;    // Damage that each fireball causes
 
     private Vector3 target;
     private Vector3 origin;
@@ -40,24 +39,6 @@ public class FireBall : MonoBehaviour
         moveDirection *= Time.deltaTime * moveSpeed;
 
         transform.Translate(moveDirection, Space.World);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if(other.gameObject.tag != "monster")
-        {
-            return;
-        }
-
-        // Check for combat
-        Combat combat = other.gameObject.GetComponent<Combat>();
-        if (combat)
-        {
-            combat.Damage(damage);
-            Destroy(gameObject);
-        }
-        
     }
 
 }

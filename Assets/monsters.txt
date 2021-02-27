@@ -1,0 +1,16 @@
+WOLF
+
+TIGER
+
+DEMON
+
+DRAGON
+
+GOD
+Thomas Train
+	- Slam
+		- Bring both front legs down and slam with AOE damage at the point of contact
+	- Laser ball
+		- Shoot a laser ball from the cannon
+	- Laser beam
+		- Power up and fire a high powered beam

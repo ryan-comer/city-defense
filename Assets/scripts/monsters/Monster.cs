@@ -11,6 +11,10 @@ public enum MonsterThreat
     GOD
 }
 
+[RequireComponent(typeof(MonsterTargeting))]
+[RequireComponent(typeof(MonsterMovement))]
+[RequireComponent(typeof(Combat))]
+[RequireComponent(typeof(StatusEffects))]
 // Represents a monster that the player fights
 public class Monster : MonoBehaviour
 {

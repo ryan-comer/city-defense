@@ -56,6 +56,7 @@ public class MonsterMovement : MonoBehaviour
         if((target.transform.position - transform.position).magnitude <= stoppingDistance)
         {
             // Don't get closer
+            anim.SetBool("walking", false);
             return;
         }
 
@@ -76,7 +77,14 @@ public class MonsterMovement : MonoBehaviour
             moveVector.z
         ), Vector3.up);
 
-        anim.SetBool("walking", true);
+        if(moveVector.magnitude > 0)
+        {
+            anim.SetBool("walking", true);
+        }
+        else
+        {
+            anim.SetBool("walking", false);
+        }
     }
 
     private bool isGrounded()

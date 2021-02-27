@@ -62,7 +62,7 @@ public class Spawnling : MonoBehaviour
     // Called from animation
     public void Attack()
     {
-        Collider[] hits = getMeleeHits();
+        Collider[] hits = MonsterUtils.GetColliderHits(meleeCollider, transform.localScale, LayerMask.GetMask("player_main", "building"));
 
         // Damage all the combats
         foreach(Collider hitCollider in hits)
@@ -109,7 +109,7 @@ public class Spawnling : MonoBehaviour
         HashSet<Combat> combatsHit = new HashSet<Combat>(); // Used to make sure you only hit once
         while (true)
         {
-            Collider[] hits = getMeleeHits();
+            Collider[] hits = MonsterUtils.GetColliderHits(meleeCollider, transform.localScale, LayerMask.GetMask("player_main", "building"));
 
             // Damage all the combats
             foreach(Collider hitCollider in hits)
@@ -143,13 +143,13 @@ public class Spawnling : MonoBehaviour
             return;
         }
 
-        if (cooldowns.GetTimeLeft(LEAP_NAME) <= 0 && checkAbilityRange(leapRange))
+        if (cooldowns.GetTimeLeft(LEAP_NAME) <= 0 && MonsterUtils.CheckAbilityRange(transform, monsterTargeting, leapRange))
         {
             // Leap attack
             anim.SetBool("leap", true);
             cooldowns.StartCooldown(LEAP_NAME);
         }
-        else if(cooldowns.GetTimeLeft(ATTACK_NAME) <= 0 && checkAbilityRange(attackRange))
+        else if(cooldowns.GetTimeLeft(ATTACK_NAME) <= 0 && MonsterUtils.CheckAbilityRange(transform, monsterTargeting, attackRange))
         {
             // Attack
             anim.SetTrigger("attack");
@@ -164,18 +164,6 @@ public class Spawnling : MonoBehaviour
         cooldowns.RegisterCooldown(LEAP_NAME, leapCooldown);
     }
 
-    private Collider[] getMeleeHits()
-    {
-        int layerMask = LayerMask.GetMask("player", "citizen", "building");
-        Collider[] colliders = Physics.OverlapBox(meleeCollider.transform.position + meleeCollider.center, new Vector3(
-            meleeCollider.size.x/2,
-            meleeCollider.size.y/2,
-            meleeCollider.size.z/2
-        ), Quaternion.LookRotation(transform.forward, Vector3.up), layerMask);
-
-        return colliders;
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(meleeCollider.transform.position + meleeCollider.center, new Vector3(
@@ -183,29 +171,6 @@ public class Spawnling : MonoBehaviour
             meleeCollider.size.y,
             meleeCollider.size.z
         ));
-    }
-
-    // Check if an ability is in range of the target
-    private bool checkAbilityRange(float range)
-    {
-        GameObject target = monsterTargeting.CurrentTarget;
-        Vector3 targetLocation = monsterTargeting.CurrentTargetLocation;
-
-        if(target == null)
-        {
-            // No target
-            return false;
-        }
-
-        // See if you're close enough
-        if ((targetLocation - transform.position).magnitude < range)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
 }
