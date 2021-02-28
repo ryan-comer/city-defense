@@ -956,6 +956,10 @@ MonoBehaviour:
       type: 3}
     dimensions: {x: 0, y: 0, z: 0}
     randomWeight: 1
+  - cityType: 0
+    prefab: {fileID: 463437658737022339, guid: 63910d7ea82afe94589e6800abea641a, type: 3}
+    dimensions: {x: 0, y: 0, z: 0}
+    randomWeight: 1
   props: []
   groundMaterial: {fileID: 2100000, guid: 4abae14cda0fb594797e684b573f87e3, type: 2}
 --- !u!1 &756397234
@@ -2488,7 +2492,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadGenerator: {fileID: 1276745918}
-  waves: []
+  waves:
+  - monsterThreatsToSpawn:
+    - threat: 4
+      count: 10
   spawnableMonsters:
   - threat: 0
     monsters_p:

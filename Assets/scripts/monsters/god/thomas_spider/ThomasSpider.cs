@@ -105,6 +105,10 @@ public class ThomasSpider : MonoBehaviour
     // Coroutine to manage the laser beam
     private IEnumerator laserBeamCo()
     {
+        // First start position is almost hitting target
+        currentLaserBeam.TargetPosition = Vector3.Lerp(cannonStart.transform.position, 
+            monsterTargeting.CurrentTarget ? monsterTargeting.CurrentTarget.transform.position : cannonStart.transform.position, 
+            0.8f);
         while(currentLaserBeam != null)
         {
             currentLaserBeam.StartPosition = cannonStart.transform.position;

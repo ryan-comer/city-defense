@@ -94,7 +94,7 @@ public class LaserBeam : MonoBehaviour
         Collider[] hits = Physics.OverlapBox(center, new Vector3(
             beamWidth/2,
             beamWidth/2,
-            beamLength
+            beamLength/2
         ), orientation, LayerMask.GetMask("player_main", "building"));
 
         foreach(Collider hit in hits)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
+[RequireComponent(typeof(Combat))]
 // Represents a building in the city
 public class Building : MonoBehaviour
 {
