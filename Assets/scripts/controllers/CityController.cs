@@ -171,7 +171,7 @@ public class CityController : MonoBehaviour
 
     private BlockType getNextBlockType()
     {
-        return BlockType.RESIDENTIAL;
+        return new BlockType[] { BlockType.RESIDENTIAL, BlockType.OFFICE}[UnityEngine.Random.Range(0, 2)];
         var values = System.Enum.GetValues(typeof(BlockType));
         return (BlockType) values.GetValue(UnityEngine.Random.Range(0, values.Length));
     }

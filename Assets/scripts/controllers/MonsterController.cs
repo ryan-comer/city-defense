@@ -98,7 +98,10 @@ public class MonsterController : MonoBehaviour
             if(currentWaveNumber == waves.Length)
             {
                 wavesComplete = true;
-                OnWavesComplete.Invoke();
+                if(OnWavesComplete != null)
+                {
+                    OnWavesComplete.Invoke();
+                }
             }
 
             // Spawn the next wave

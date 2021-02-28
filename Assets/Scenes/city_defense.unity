@@ -805,6 +805,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58127315c5b412d4481d36ae488603fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildings:
+  - cityType: 0
+    prefab: {fileID: 1999410777552011410, guid: 71bb38f44ef333f47b0ba0c8567b1d6b,
+      type: 3}
+    dimensions: {x: 0, y: 0, z: 0}
+    randomWeight: 1
+  - cityType: 0
+    prefab: {fileID: 7562512821271220077, guid: dc7147c4df5c5b04d9395db1bbb4c17f,
+      type: 3}
+    dimensions: {x: 0, y: 0, z: 0}
+    randomWeight: 1
+  - cityType: 0
+    prefab: {fileID: 5042280362668153077, guid: 170ad0fc7264e2d4ca4c22d943ce81dd,
+      type: 3}
+    dimensions: {x: 0, y: 0, z: 0}
+    randomWeight: 1
+  props: []
+  groundMaterial: {fileID: 2100000, guid: cc1cd474d31f67b459a639ac82d9cf48, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,10 +2510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadGenerator: {fileID: 1276745918}
-  waves:
-  - monsterThreatsToSpawn:
-    - threat: 4
-      count: 10
+  waves: []
   spawnableMonsters:
   - threat: 0
     monsters_p:

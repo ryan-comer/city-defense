@@ -32,7 +32,8 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
 
                 // Get the building
                 Vector3 dimensions;
-                CityPrefabInfo blockObjectInfo = CityGenerationUtils.GetRandomBlockObjectWithMaxSize(xLeft, yLeft, buildings, out dimensions);
+                Vector3 offset;
+                CityPrefabInfo blockObjectInfo = CityGenerationUtils.GetRandomBlockObjectWithMaxSize(xLeft, yLeft, buildings, out dimensions, out offset);
 
                 // Nothing could fit
                 if(blockObjectInfo.prefab == null)
@@ -42,7 +43,7 @@ public class ResidentialGenerator : MonoBehaviour, IGenerator
 
                 // Instantiate and place the building
                 GameObject buildingObj = Instantiate(blockObjectInfo.prefab, newBlock.transform);
-                buildingObj.transform.localPosition = new Vector3(x + (dimensions.x / 2), 0, y + (dimensions.z / 2));
+                buildingObj.transform.localPosition = new Vector3(x + (dimensions.x / 2) + offset.x, 0, y + (dimensions.z / 2) + offset.z);
 
                 // Add the building to the set of active buildings
                 Building building = buildingObj.GetComponent<Building>();
