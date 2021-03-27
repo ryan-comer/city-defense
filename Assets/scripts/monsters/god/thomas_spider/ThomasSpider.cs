@@ -190,7 +190,7 @@ public class ThomasSpider : MonoBehaviour
         laserBall.transform.position = cannonStart.transform.position;
 
         // Set the ball direction
-        Vector3 moveDirection = targetPosition - cannonStart.transform.position;
+        Vector3 moveDirection = targetPosition - laserBall.transform.position;
         laserBall.GetComponent<MoveTowards>().MoveDirection = moveDirection;
         Destroy(laserBall.gameObject, 10.0f);
     }

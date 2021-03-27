@@ -2131,7 +2131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290e0aed8d12acc43bb6c66caed789a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_p: {fileID: 509627404073590002, guid: abedc7e5ab97d9444a172c8fe8ba0b99, type: 3}
+  player_p: {fileID: 6496724510804003827, guid: 29db83a5d846db04da5c5cf361ecf1aa,
+    type: 3}
   playerCamera: {fileID: 963194229}
   playerSpawnPoint: {fileID: 1137936234}
   playerHealthBar: {fileID: 1243421623}
@@ -2510,7 +2511,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadGenerator: {fileID: 1276745918}
-  waves: []
+  waves:
+  - monsterThreatsToSpawn:
+    - threat: 0
+      count: 10
+  - monsterThreatsToSpawn:
+    - threat: 0
+      count: 20
+  - monsterThreatsToSpawn:
+    - threat: 4
+      count: 1
   spawnableMonsters:
   - threat: 0
     monsters_p:

@@ -19,3 +19,61 @@ E: Blaze
 S class abilities
 R: Heat seeker
 	- Shoot a bunch of fire balls out that track targets
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+animal_girl
+role
+	50/50 - melee damage dealer/utility
+description
+	A hero that has the power to talk to animals.  She can use animals in her fighting, and can also imbue herself with some of the abilities from animals
+left_click
+	cat_claws
+		Swipe quickly with cat claws
+right_click
+	lunge
+		Leap in a target direction - strike the first target hit
+f
+	mount
+		Ride Nigel around.  You run faster and jump higher
+	pounce
+		Pounce in a direction - gaining height and distance
+q
+	bird_blind
+		Throw a bird in a straight line.  Create an AoE blind field at the first target hit and damage (birds attacking)
+e
+	turtle_shell
+		Create 3 spinning turtles around you giving you a defensive bonus
+		Reactivate to fire a shell in a line
+		Hitting a target will damage/slow in an area
+r
+	Nigelton
+		Nigel and Newton combine to form Nigelton!  He is much more deadly than the two of them separately
+	Critter Army
+		Temporarily summon 3-5 creatures to help fight
+nigel
+	attack
+	will periodically attack the person you are attacking
+newton
+	defense
+	will periodically block damage and make you invulnerable for a time period
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+air_hero
+left_click
+fast, low damaging air strikes	
+	
+right_click
+	Wind in a medium-thick line, gusting slice of wind
+	Damage, push back a little
+f
+	Blink - short CD
+q
+	Fades into wind - untargetable
+	Move faster
+e
+	Ground target - tornado to keep people in place
+r
+	slice wind swords attack in large radius in front - 5-6 pulses
+	Big damage
