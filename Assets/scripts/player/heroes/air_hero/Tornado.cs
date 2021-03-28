@@ -9,15 +9,23 @@ public class Tornado : MonoBehaviour
     public float duration;  // How long the tornado lasts
     public LayerMask affectedLayers;    // The layers to affect with the pull
 
+    public ParticleSystem[] particleSystems;
+
     private HashSet<Rigidbody> affectedObjects = new HashSet<Rigidbody>();  // Set of objects that are being pulled towards the center
+    private bool shouldPull = true;
 
     private void Start()
     {
-        Destroy(gameObject, duration);
+        StartCoroutine(DelayedDestroy());
     }
 
     private void FixedUpdate()
     {
+        if (!shouldPull)
+        {
+            return;
+        }
+
         foreach(Rigidbody rigidBody in affectedObjects)
         {
             if(rigidBody == null)
@@ -31,6 +39,20 @@ public class Tornado : MonoBehaviour
 
             rigidBody.AddForce(pullDirection * strength);
         }
+    }
+
+    private IEnumerator DelayedDestroy()
+    {
+        yield return new WaitForSeconds(duration);
+        
+        foreach(ParticleSystem particleSystem in particleSystems)
+        {
+            particleSystem.Stop();
+            shouldPull = false;
+        }
+
+        yield return new WaitForSeconds(4);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

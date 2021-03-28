@@ -6,21 +6,31 @@ public class AirHero : MonoBehaviour
 {
     public AirStrike airStrike_p;
     public Tornado tornado_p;
+    public GameObject windEffect;
 
+    public GameObject body;
     public GameObject leftHand;
     public GameObject rightHand;
 
+    public float airEssenceDuration;
+
     private PlayerMovement playerMovement;
     private Animator anim;
+    private Combat combat;
+    private StatusEffects statusEffects;
 
     // Start is called before the first frame update
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         anim = GetComponent<Animator>();
+        combat = GetComponent<Combat>();
+        statusEffects = GetComponent<StatusEffects>();
 
         Debug.Assert(playerMovement);
         Debug.Assert(anim);
+        Debug.Assert(combat);
+        Debug.Assert(statusEffects);
     }
 
     // Update is called once per frame
@@ -75,6 +85,10 @@ public class AirHero : MonoBehaviour
         {
             tornado();
         }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            airEssence();
+        }
     }
 
     // Primary attack ability
@@ -88,6 +102,41 @@ public class AirHero : MonoBehaviour
     private void tornado()
     {
         anim.SetTrigger("tornado");
+    }
+
+    // Fade into air, move faster
+    private void airEssence()
+    {
+        foreach(ParticleSystem particleSystem in windEffect.GetComponentsInChildren<ParticleSystem>())
+        {
+            particleSystem.Stop();
+            particleSystem.Play();
+        }
+
+        body.SetActive(false);
+        windEffect.SetActive(true);
+
+        combat.CanTakeDamage = false;
+        statusEffects.CanTakeStatus = false;
+
+        StartCoroutine(airEssenceReturn());
+    }
+
+    private IEnumerator airEssenceReturn()
+    {
+        yield return new WaitForSeconds(airEssenceDuration);
+
+        windEffect.SetActive(false);
+        body.SetActive(true);
+
+        combat.CanTakeDamage = true;
+        statusEffects.CanTakeStatus = true;
+    }
+
+    // Blink in a direction
+    private void blink()
+    {
+
     }
 
 }

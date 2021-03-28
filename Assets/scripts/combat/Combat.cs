@@ -13,6 +13,19 @@ public class Combat : MonoBehaviour
     public delegate void DeathDelegate(GameObject deadCharacter);
     public event DeathDelegate OnDeath;
 
+    private bool canTakeDamage = true;
+    public bool CanTakeDamage
+    {
+        get
+        {
+            return canTakeDamage;
+        }
+        set
+        {
+            canTakeDamage = value;
+        }
+    }
+
     public bool IsDead
     {
         get
@@ -31,6 +44,12 @@ public class Combat : MonoBehaviour
     // Take damage
     public void Damage(float damage)
     {
+        // Check if you can take damage
+        if (!canTakeDamage)
+        {
+            return;
+        }
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 

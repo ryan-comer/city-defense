@@ -12,6 +12,19 @@ public enum STATUS_EFFECT
 public class StatusEffects : MonoBehaviour
 {
 
+    private bool canTakeStatus = true;
+    public bool CanTakeStatus
+    {
+        get
+        {
+            return canTakeStatus;
+        }
+        set
+        {
+            canTakeStatus = value;
+        }
+    }
+
     private Dictionary<STATUS_EFFECT, System.DateTime> statusEffectTimes = new Dictionary<STATUS_EFFECT, System.DateTime>();
     private Dictionary<STATUS_EFFECT, float> statusEffectDurations = new Dictionary<STATUS_EFFECT, float>();
 
@@ -30,6 +43,12 @@ public class StatusEffects : MonoBehaviour
     // Add a new status effect for this entity
     public void AddStatus(STATUS_EFFECT statusEffect, float duration)
     {
+        // Check if we can set a new status
+        if (!canTakeStatus)
+        {
+            return;
+        }
+
         statusEffectTimes[statusEffect] = System.DateTime.Now;
         statusEffectDurations[statusEffect] = duration;
     }
